@@ -8,6 +8,10 @@ import (
 
 var db *gorm.DB
 
+func GetDB() *gorm.DB {
+	return db
+}
+
 func InitMySQLConnection(addr string) (err error) {
 	db, err = gorm.Open("mysql", addr)
 	if err != nil {
