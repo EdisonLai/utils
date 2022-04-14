@@ -2,8 +2,13 @@ package mysql
 
 import (
 	"fmt"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"time"
+
+	gormlogruslogger "github.com/aklinkert/go-gorm-logrus-logger"
+	"github.com/sirupsen/logrus"
+	"gorm.io/driver/mysql"
+	_ "gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 var db *gorm.DB
@@ -13,12 +18,29 @@ func GetDB() *gorm.DB {
 }
 
 func InitMySQLConnection(addr string) (err error) {
-	db, err = gorm.Open("mysql", addr)
+	mysqlConfig := mysql.Config{
+		DSN:                    addr,
+		DontSupportRenameIndex: true,
+	}
+
+	db, err = gorm.Open(mysql.New(mysqlConfig), &gorm.Config{
+		Logger: gormlogruslogger.NewGormLogrusLogger(
+			logrus.WithFields(logrus.Fields{
+				"service": "mysql",
+			}),
+			2*time.Second),
+	})
 	if err != nil {
 		err = fmt.Errorf("%v: %s", err, "Building mysql connection failed!")
 		return err
 	}
-	db.DB().SetMaxIdleConns(1)
-	db.DB().SetMaxOpenConns(50)
+	sqlDB, err := db.DB()
+	if err != nil {
+		err = fmt.Errorf("Get mysql connect pool %v failed!\n%v", addr, err)
+		logrus.Error(err)
+		return err
+	}
+	sqlDB.SetMaxIdleConns(1)
+	sqlDB.SetMaxOpenConns(50)
 	return nil
 }

@@ -4,10 +4,12 @@ go 1.17
 
 require (
 	github.com/BurntSushi/toml v1.0.0
+	github.com/aklinkert/go-gorm-logrus-logger v1.0.0
 	github.com/coreos/etcd v3.3.27+incompatible
-	github.com/jinzhu/gorm v1.9.16
 	github.com/sirupsen/logrus v1.8.1
 	go.etcd.io/etcd v3.3.27+incompatible
+	gorm.io/driver/mysql v1.3.3
+	gorm.io/gorm v1.23.4
 )
 
 require (
@@ -17,7 +19,7 @@ require (
 	github.com/coreos/pkg v0.0.0-20180928190104-399ea9e2e55f // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
-	github.com/go-sql-driver/mysql v1.5.0 // indirect
+	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
@@ -27,6 +29,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
+	github.com/jinzhu/now v1.1.4 // indirect
 	github.com/jonboulle/clockwork v0.2.2 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
