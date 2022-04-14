@@ -2,25 +2,20 @@ package conf
 
 import (
 	"github.com/EdisonLai/utils/configutils"
+	"github.com/EdisonLai/utils/etcdutils"
+	"github.com/EdisonLai/utils/mysqlutils"
 	"github.com/sirupsen/logrus"
 )
 
 var Conf Config
 
-type EtcdConfig struct {
-	Address     []string `toml:"address"`
-	DialTimeout int      `toml:"DialTimeout"`
-	OpTimeout   int      `toml:"OperationTimeout"`
-	TLSFilePath string   `toml:"TLSFilePath"`
-}
-
 type Config struct {
-	ETCD        EtcdConfig        `toml:"etcd"`
+	ETCD  etcdutils.Config  `toml:"etcd"`
+	Mysql mysqlutils.Config `toml:"mysql"`
 }
 
-
-func checkConfValidation(c interface{}) (err error){
-	conf := c.(Config)
+func checkConfValidation(c interface{}) (err error) {
+	conf := c.(*Config)
 	logrus.Debug("%+v", conf)
 	return nil
 }

@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/coreos/etcd/clientv3"
 	"github.com/sirupsen/logrus"
+	"go.etcd.io/etcd/clientv3"
 )
 
 type Config struct {

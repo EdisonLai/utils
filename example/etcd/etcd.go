@@ -2,21 +2,21 @@ package etcd
 
 import (
 	"context"
+
 	"github.com/EdisonLai/utils/etcdutils"
 	"github.com/EdisonLai/utils/example/conf"
-	"github.com/coreos/etcd/clientv3"
 	"github.com/sirupsen/logrus"
+	"go.etcd.io/etcd/clientv3"
 )
 
 var etcdClient *clientv3.Client
 
-func InitEtcdClient(ctx context.Context) (err error){
-	etcdClient, err = etcdutils.InitEtcdClient(ctx, etcdutils.Config{
-		Address:     conf.Conf.ETCD.Address,
-		DialTimeout: conf.Conf.ETCD.DialTimeout,
-		OpTimeout:   conf.Conf.ETCD.OpTimeout,
-		TLSFilePath: conf.Conf.ETCD.TLSFilePath,
-	})
+func GetEtcdClient() *clientv3.Client {
+	return etcdClient
+}
+
+func InitEtcdClient(ctx context.Context) (err error) {
+	etcdClient, err = etcdutils.InitEtcdClient(ctx, conf.Conf.ETCD)
 	if err != nil {
 		logrus.Error(err)
 		return
